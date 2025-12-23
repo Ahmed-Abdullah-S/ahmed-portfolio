@@ -1,3 +1,10 @@
+// Load environment variables from .env.local or .env files
+// dotenv/config loads .env by default, but we want .env.local to take precedence
+import { config } from "dotenv";
+import { resolve } from "node:path";
+config({ path: resolve(process.cwd(), ".env.local") });
+config(); // Fallback to .env if .env.local doesn't exist
+
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
