@@ -5,10 +5,39 @@
 
 # Dependencies
 node_modules/
+.pnp
+.pnp.js
 
-# Build outputs
+# Testing
+coverage/
+
+# Next.js
+.next/
+out/
+build/
 dist/
+
+# Production
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Debug
+.DS_Store
+*.pem
+
+# Local env files
+.env*.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
 
 # IDE
 .vscode/
@@ -25,3 +54,6 @@ Thumbs.db
 *.db
 *.sqlite
 
+# Misc
+.cache/
+.turbo/

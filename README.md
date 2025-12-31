@@ -1,6 +1,6 @@
 # Ahmed Portfolio
 
-A modern portfolio website built with Express, React, Vite, and PostgreSQL.
+A modern portfolio website built with Next.js 15, React 19, and PostgreSQL.
 
 ## Features
 
@@ -8,8 +8,9 @@ A modern portfolio website built with Express, React, Vite, and PostgreSQL.
 - 📱 Fully responsive design
 - 🌐 Multi-language support (English/Arabic)
 - 📧 Contact form with database persistence
-- ⚡ Fast development with Vite
+- ⚡ Fast development with Next.js
 - 🚀 Serverless-ready for Vercel deployment
+- 🔥 Built with Next.js App Router
 
 ## Prerequisites
 
@@ -29,12 +30,6 @@ npm install
 ### 2. Set Up Environment Variables
 
 Create a `.env.local` file in the project root:
-
-```bash
-cp .env.example .env.local
-```
-
-Edit `.env.local` and add your database connection string:
 
 ```env
 DATABASE_URL=postgresql://user:password@host:5432/database?sslmode=require
@@ -71,7 +66,7 @@ This creates the `messages` table in your database.
 npm run dev
 ```
 
-The app will be available at `http://localhost:5000`
+The app will be available at `http://localhost:3000`
 
 ## Deployment to Vercel
 
@@ -92,6 +87,8 @@ git push origin main
    - Value: Your database connection string
 4. Deploy
 
+Vercel will automatically detect Next.js and configure the build settings.
+
 ### 3. Push Schema to Production Database
 
 After deployment, push the schema to your production database:
@@ -104,6 +101,24 @@ Or set `DATABASE_URL` temporarily and run:
 
 ```bash
 DATABASE_URL=your_production_url npm run db:push
+```
+
+## Project Structure
+
+```
+app/
+├── api/              # API routes
+├── components/       # React components
+├── hooks/            # Custom React hooks
+├── lib/              # Utilities and helpers
+├── page.tsx          # Home page
+├── projects/         # Projects pages
+├── articles/         # Articles pages
+├── profile/          # Profile page
+└── contact/          # Contact page
+
+shared/
+└── schema.ts         # Database schema (Drizzle ORM)
 ```
 
 ## Database Schema
@@ -119,32 +134,37 @@ The project uses Drizzle ORM with the following schema:
 
 ## Scripts
 
-- `npm run dev` - Start development server
+- `npm run dev` - Start development server (port 3000)
 - `npm run build` - Build for production
 - `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 - `npm run db:push` - Push database schema changes
 - `npm run check` - Type check with TypeScript
 
 ## Tech Stack
 
-- **Backend**: Express.js
-- **Frontend**: React + Vite
+- **Framework**: Next.js 15 (App Router)
+- **Frontend**: React 19
 - **Database**: PostgreSQL (via Neon HTTP driver)
 - **ORM**: Drizzle ORM
 - **Styling**: Tailwind CSS
-- **UI Components**: Radix UI
+- **UI Components**: Radix UI (shadcn/ui)
+- **Animations**: Framer Motion
+- **Forms**: React Hook Form + Zod
+- **State Management**: TanStack Query
 
 ## Security Notes
 
 - Never commit `.env.local` or `.env` files
 - Keep your `DATABASE_URL` secret
 - Use environment variables for all sensitive configuration
+- The `.gitignore` file is configured to exclude sensitive files
 
 ## Troubleshooting
 
 ### "DATABASE_URL must be set" Error
 
-Make sure you've created `.env.local` with your `DATABASE_URL`. The file should be in the project root, not in a subdirectory.
+Make sure you've created `.env.local` with your `DATABASE_URL`. The file should be in the project root.
 
 ### Connection Issues
 
@@ -158,7 +178,12 @@ Make sure you've created `.env.local` with your `DATABASE_URL`. The file should 
 - Check that your database user has CREATE TABLE permissions
 - Verify the connection string format matches your provider
 
+### Build Errors
+
+- Run `npm install` to ensure all dependencies are installed
+- Check that all environment variables are set
+- Verify TypeScript types with `npm run check`
+
 ## License
 
 MIT
-
