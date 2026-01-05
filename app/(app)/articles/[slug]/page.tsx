@@ -2,8 +2,13 @@ import { notFound } from 'next/navigation';
 import { getArticleBySlug } from "@/lib/payload";
 import ArticleDetailClient from './ArticleDetailClient';
 
-export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
-  const article = await getArticleBySlug(params.slug);
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export default async function ArticleDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     notFound();

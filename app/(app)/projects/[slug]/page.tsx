@@ -2,8 +2,13 @@ import { notFound } from 'next/navigation';
 import { getProjectBySlug } from "@/lib/payload";
 import ProjectDetailClient from './ProjectDetailClient';
 
-export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
-  const project = await getProjectBySlug(params.slug);
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export default async function ProjectDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     notFound();

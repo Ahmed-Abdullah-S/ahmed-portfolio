@@ -45,6 +45,12 @@
   /* Radius */
   --radius: 0.75rem;
 
+  /* Button borders */
+  --button-outline: hsl(265 30% 25%);
+  --primary-border: hsl(263 70% 40%);
+  --secondary-border: hsl(265 30% 25%);
+  --destructive-border: hsl(0 62.8% 25%);
+
   /* Fonts */
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Outfit', sans-serif;
@@ -144,6 +150,17 @@
     animation: blob 30s infinite;
   }
 
+  /* Button hover/active states */
+  .hover-elevate {
+    @apply transition-all duration-200;
+  }
+  .hover-elevate:hover {
+    @apply -translate-y-0.5 shadow-lg;
+  }
+  .active-elevate-2:active {
+    @apply translate-y-0 shadow-md;
+  }
+
   @keyframes blob {
     0%, 100% {
       transform: translate(0, 0) scale(1);
@@ -156,4 +173,5 @@
     }
   }
 }
+
 
