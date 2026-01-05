@@ -23,8 +23,9 @@ function getImageUrl(image: any): string {
 export async function getTranslations(language: 'en' | 'ar' = 'en') {
   try {
     const payload = await getPayloadClient();
+    // Type assertion needed until payload-types.ts is regenerated
     const result = await payload.find({
-      collection: 'translations',
+      collection: 'translations' as any,
       where: {},
       limit: 1000,
     });
