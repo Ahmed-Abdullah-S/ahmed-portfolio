@@ -20,10 +20,12 @@ function getImageUrl(image: any): string {
   return '';
 }
 
+// Note: Collection names use 'as any' because payload-types.ts needs regeneration
+// Run `npx payload generate:types` locally to fix this properly
+
 export async function getTranslations(language: 'en' | 'ar' = 'en') {
   try {
     const payload = await getPayloadClient();
-    // Type assertion needed until payload-types.ts is regenerated
     const result = await payload.find({
       collection: 'translations' as any,
       where: {},
@@ -38,7 +40,6 @@ export async function getTranslations(language: 'en' | 'ar' = 'en') {
     return translations;
   } catch (error) {
     console.error('Error fetching translations:', error);
-    // Return default translations if Payload fails
     return getDefaultTranslations(language);
   }
 }
@@ -93,7 +94,7 @@ export async function getPersonalInfo(language: 'en' | 'ar' = 'en') {
   try {
     const payload = await getPayloadClient();
     const result = await payload.find({
-      collection: 'personal-info',
+      collection: 'personal-info' as any,
       limit: 1,
     });
 
@@ -101,7 +102,7 @@ export async function getPersonalInfo(language: 'en' | 'ar' = 'en') {
       return getDefaultPersonalInfo(language);
     }
 
-    const info = result.docs[0];
+    const info = result.docs[0] as any;
     const isAr = language === 'ar';
     
     return {
@@ -165,7 +166,7 @@ export async function getSkills() {
   try {
     const payload = await getPayloadClient();
     const result = await payload.find({
-      collection: 'skills',
+      collection: 'skills' as any,
       where: {},
       limit: 100,
       sort: 'order',
@@ -188,7 +189,7 @@ export async function getExperience(language: 'en' | 'ar' = 'en') {
   try {
     const payload = await getPayloadClient();
     const result = await payload.find({
-      collection: 'experience',
+      collection: 'experience' as any,
       where: {},
       limit: 100,
       sort: '-order',
@@ -212,7 +213,7 @@ export async function getProjects(language: 'en' | 'ar' = 'en') {
   try {
     const payload = await getPayloadClient();
     const result = await payload.find({
-      collection: 'projects',
+      collection: 'projects' as any,
       where: {},
       limit: 100,
       sort: '-createdAt',
@@ -242,7 +243,7 @@ export async function getArticles(language: 'en' | 'ar' = 'en') {
   try {
     const payload = await getPayloadClient();
     const result = await payload.find({
-      collection: 'articles',
+      collection: 'articles' as any,
       where: {},
       limit: 100,
       sort: '-date',
@@ -274,7 +275,7 @@ export async function getProjectBySlug(slug: string, language: 'en' | 'ar' = 'en
   try {
     const payload = await getPayloadClient();
     const result = await payload.find({
-      collection: 'projects',
+      collection: 'projects' as any,
       where: {
         slug: {
           equals: slug,
@@ -285,7 +286,7 @@ export async function getProjectBySlug(slug: string, language: 'en' | 'ar' = 'en
 
     if (result.docs.length === 0) return null;
 
-    const project = result.docs[0];
+    const project = result.docs[0] as any;
     const isAr = language === 'ar';
     
     return {
@@ -310,7 +311,7 @@ export async function getArticleBySlug(slug: string, language: 'en' | 'ar' = 'en
   try {
     const payload = await getPayloadClient();
     const result = await payload.find({
-      collection: 'articles',
+      collection: 'articles' as any,
       where: {
         slug: {
           equals: slug,
@@ -321,7 +322,7 @@ export async function getArticleBySlug(slug: string, language: 'en' | 'ar' = 'en
 
     if (result.docs.length === 0) return null;
 
-    const article = result.docs[0];
+    const article = result.docs[0] as any;
     const isAr = language === 'ar';
     
     return {
